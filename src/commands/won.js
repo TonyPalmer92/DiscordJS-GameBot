@@ -48,6 +48,7 @@ module.exports = {
     } catch (error) {
       const err = {
         message: error.message,
+        user: id,
         stack: error.stack,
         timestamp: moment().format("DD-MM-YYYY hh:mm:ss A"),
       };

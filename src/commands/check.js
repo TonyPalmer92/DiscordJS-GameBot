@@ -8,6 +8,11 @@ module.exports = {
 
   async execute(message, args, id) {
     try {
+      if (args.length < 1) {
+        message.reply("You did not specify a game to check!");
+        throw Error("No param was passed in.");
+      }
+
       const data = await User.findOne({
         discordID: id,
       });
@@ -25,7 +30,7 @@ module.exports = {
       const game = utils.searchForGame(args[0]);
       if (!game) {
         message.reply("There is no game with that name within the database!");
-        throw Error("First param does not match any game in json file");
+        throw Error("Search term did not find a game.");
       }
       const property = game.property;
 
@@ -41,6 +46,7 @@ module.exports = {
     } catch (error) {
       const err = {
         message: error.message,
+        user: id,
         stack: error.stack,
         timestamp: moment().format("DD-MM-YYYY hh:mm:ss A"),
       };

@@ -11,7 +11,7 @@ module.exports = {
 
   execute(message, bot) {
     if (!message.content.startsWith(PREFIX) || message.author.bot) return; // Prevent BOT spamming server
-    const id = message.author.tag; // Grab name#number name in discord
+    const discordName = message.author.tag; // Grabs name#number name in discord
 
     if (message.content.startsWith(PREFIX)) {
       const [commandType, ...args] = message.content
@@ -34,7 +34,7 @@ module.exports = {
 
       bot.commands.forEach((command) => {
         if (commandType === command.name) {
-          command.execute(message, args, id);
+          command.execute(message, args, discordName);
           return;
         }
       });

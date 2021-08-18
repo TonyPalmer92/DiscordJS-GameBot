@@ -24,10 +24,10 @@ module.exports = {
   name: "add",
   description: "Adds a new game property to DB document",
 
-  async execute(message, args, id) {
+  async execute(message, args, discordName) {
     try {
       const data = await User.findOne({
-        discordID: id,
+        discordID: discordName,
       });
       if (!data) {
         return message.reply("No user exists, please create your profile!");
@@ -63,6 +63,7 @@ module.exports = {
     } catch (error) {
       const err = {
         message: error.message,
+        user: discordName,
         stack: error.stack,
         timestamp: moment().format("DD-MM-YYYY hh:mm:ss A"),
       };

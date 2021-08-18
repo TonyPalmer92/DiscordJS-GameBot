@@ -6,7 +6,7 @@ const gameStore = JSON.parse(rawData);
 
 // Will return a matched game object OR
 // false so module can handle response to client
-exports.searchForGame = function (query) {
+const searchForGame = (query) => {
   const { games } = gameStore;
 
   const game_exists = games.find((element) => element.search.includes(query));
@@ -15,4 +15,8 @@ exports.searchForGame = function (query) {
   }
 
   return game_exists;
+};
+
+module.exports = {
+  searchForGame,
 };
