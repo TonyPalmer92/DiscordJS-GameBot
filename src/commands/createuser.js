@@ -1,25 +1,37 @@
-const User = require("../../models/UserSchema");
+// Core packages
+
+// NPM packages
+
+// Local packages
+const firestore = require("../../firestore/db");
 
 module.exports = {
-  name: 'createuser',
-  description: 'Creates new user based on DiscordID',
+  name: "createuser",
+  description: "Creates new user based on DiscordID",
 
-  async execute(message, args, id) {
-    const exist = await User.findOne({
-      discordID: id,
-    });
-    if (!exist) {
-      // create new document in DB based on userTag
-      const newUser = new User({
-        discordID: id,
-      });
+  async execute(message) {
+    // Reference to the collection
+    const userCollection = await firestore.collection("users");
 
-      const data = await newUser.save();
-      message.reply("Your profile has been created");
+    // check if user has account already
+    const snapshotArr = await userCollection
+      .where("discord_id", "==", `${message.author.id}`)
+      .get();
 
-      if (!data) throw new Error("No data for this Discord user");
-    } else {
-      return message.reply("Profile already exists");
+    // return message and exit if exists
+    if (!snapshotArr.empty) {
+      return message.reply("Account already exists");
     }
-  }
-}
+
+    // define document for firebase
+    const userDoc = {
+      discord_id: message.author.id,
+      discord_username: message.author.username,
+      games: [],
+    };
+
+    await userCollection.add(userDoc);
+
+    return message.reply("Account successfully set up");
+  },
+};

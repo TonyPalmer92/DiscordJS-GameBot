@@ -1,6 +1,6 @@
 const User = require("../../models/UserSchema");
 const moment = require("moment");
-const utils = require("../../utils/utils");
+const utils = require("../utils/utils");
 
 module.exports = {
   name: "check",

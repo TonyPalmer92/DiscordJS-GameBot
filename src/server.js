@@ -12,7 +12,17 @@ const db = require("../config/database");
 
 // create a new Discord client
 const bot = new Client({
-  intents: [Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS],
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_PRESENCES,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+    Intents.FLAGS.GUILD_MESSAGE_TYPING,
+    Intents.FLAGS.DIRECT_MESSAGES,
+    Intents.FLAGS.DIRECT_MESSAGE_TYPING,
+    Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
+  ],
 });
 bot.commands = new Collection();
 
@@ -22,6 +32,7 @@ const eventFiles = fs
 
 for (const file of eventFiles) {
   const event = require(`./events/${file}`);
+
   if (event.once) {
     bot.once(event.name, (...args) => event.execute(...args, bot));
   } else {

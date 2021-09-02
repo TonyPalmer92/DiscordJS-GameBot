@@ -5,6 +5,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.4] - UPCOMING
+
+### Added
+
+- Discord name added to error messages.
+- Event which tracks users time spent on a game.
+
+### Fixed
+
+- N/A
+
+### Change
+
+- Utils module amended to reflect modern approach.
+
+### Removed
+
+- N/A
+
 ## [1.0.3] - 2020-10-21
 
 ### Added
